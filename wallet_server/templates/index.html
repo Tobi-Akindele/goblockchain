@@ -45,7 +45,11 @@
                     data: JSON.stringify(transaction_data),
                     success: function (response) {
                         console.info(response);
-                        alert('Send success');
+                        if (response.message === 'fail') {
+                            alert("Send fail");
+                        } else {
+                            alert('Send success');
+                        }
                     },
                     error: function (response) {
                         alert('Send failed');
