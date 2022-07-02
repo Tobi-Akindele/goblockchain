@@ -45,13 +45,41 @@
                     data: JSON.stringify(transaction_data),
                     success: function (response) {
                         console.info(response);
-                        alert('Send success');
+                        if (response.message === 'fail') {
+                            alert("Send fail");
+                        } else {
+                            alert('Send success');
+                        }
                     },
                     error: function (response) {
                         alert('Send failed');
                     }
                 })
             })
+
+            function reload_amount() {
+                let data = {'blockchain_address': $('#blockchain_address').val()}
+                $.ajax({
+                    url: '/wallet/amount',
+                    type: 'GET',
+                    data: data,
+                    success: function (response) {
+                        let amount = response['amount'];
+                        $('#wallet_amount').text(amount);
+                        console.info(amount)
+                    },
+                    error: function (error) {
+                        console.error(error)
+                    }
+                })
+            }
+
+            // $('#reload_wallet').click(function () {
+            //     reload_amount();
+            // })
+
+            setInterval(reload_amount, 3000)
+
         })
 
     </script>
